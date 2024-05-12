@@ -1,0 +1,49 @@
+{
+  atgProductId: null,
+  attributes: [ { name: 'NetWeight', value: '75' } ],
+  complexQuantity: { baseQty: 16, multiplier: 1 },
+  description: '<p>Glo Bamboo Liners 16 Pack</p><p><br></p><ul><li>SILKY SOFT & ULTRA-ABSORBENT</li><li>VEGAN & CRUELTY FREE</li></ul><p>(holds 15ml liquid).</p><p><br></p><p>Featuring silky soft bamboo liners and plastic-free wrappers.</p><p><br></p><p>Here We Flo Ltd, International House, 776-778 Barking Road, London, E13 9PJ</p>',
+  id: 6100003572,
+  images: [
+    [ [Object], [Object], [Object] ],
+    [ [Object], [Object], [Object] ],
+    [ [Object], [Object], [Object] ]
+  ],
+  info: {
+    dietInfos: null,
+    dietLeaflets: [ [Object] ],
+    dietPlanLeaflets: [ [Object] ],
+    infoSections: [ [Object] ],
+    patientInfoLeaflets: [ [Object] ],
+    suitableFor: null
+  },
+  isNew: true,
+  name: 'Glo Bamboo Liners 16 Pack',
+  notAvailableCustomMessage: null,
+  plantPoints: 0,
+  potency: null,
+  quantityString: '16 Pads',
+  seo: {
+    slug: 'glo-bamboo-liners-16-pack',
+    metaDescription: 'Shop Glo Bamboo Liners 16 Pack at Holland & Barrett',
+    pageTitle: 'Glo Bamboo Liners | Holland & Barrett'
+  },
+  strapline: null,
+  video: { isActive: false, url: '' },
+  skus: [
+    {
+      availability: [Object],
+      bundles: null,
+      id: '068134',
+      inStock: true,
+      isAvailable: true,
+      isBundle: false,
+      label: [Object],
+      name: 'Glo Bamboo Liners 16 Pack',
+      prices: [Object],
+      promo: [Object],
+      rflRewardPoints: 12,
+      subscription: [Object]
+    }
+  ]
+}
