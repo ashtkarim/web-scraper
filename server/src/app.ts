@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import getCategories from "./get-categories";
 import getProducts from "./get-products";
+import getProduct from "./get-product";
 
 const app = express();
 
@@ -26,6 +27,17 @@ app.get("/products", async (req: Request, res: Response) => {
     res.status(500).json({ error: err?.message });
   }
 });
+
+app.get("/product",async (req: Request,res: Response)=>{
+  try {
+    const categoryUrl: any = baseUrl + req.query.url;
+    const productLinks = await getProduct(categoryUrl);
+    res.json(productLinks);
+  } catch (err: any) {
+    console.error("err");
+    res.status(500).json({ error: err?.message });
+  }
+})
 
 app.listen(4000, () => {
   console.log(`Server is running `);
