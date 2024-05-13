@@ -25,7 +25,6 @@ export default async function getProduct(url: string): Promise<object> {
   const responseData = response.data;
   if (!responseData) return [];
   const Nut=jp.query(responseData,'$..nutritionals[0].value[0].sections')[0]
-  // return {nut:niceJson(Nut)}
 
   return {
       category: jp.value(responseData, "$..primaryCategory.path").split('/').pop(),
