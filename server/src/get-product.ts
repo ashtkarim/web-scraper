@@ -8,13 +8,25 @@ const headers = {
 };
 const removeHtmlTags = (s: string) => (s || "").replace(/(<([^>]+)>)/gi, "");
 
+function niceJson(element: any[]){
+  if (!element || element.length === 0 ) return []
+  let resut: any={}
+  element.forEach(elem => {
+    let r:any={}
+    elem.fact.keys.forEach((e:any)=>{r[e.key]=e.value})
+    resut[elem.heading]=r
+  });
+  return resut
+}
+
 export default async function getProduct(url: string): Promise<object> {
   let response = await axios.get(url, { headers });
 
   const responseData = response.data;
   if (!responseData) return [];
-  const Nut=jp.query(responseData,'$..nutritionals[0].value[0]')
-  console.log(response.data)
+  const Nut=jp.query(responseData,'$..nutritionals[0].value[0].sections')[0]
+  // return {nut:niceJson(Nut)}
+
   return {
       category: jp.value(responseData, "$..primaryCategory.path").split('/').pop(),
       Manufacturer:jp.query(responseData,"$..product.brand.name")[0],
@@ -23,25 +35,6 @@ export default async function getProduct(url: string): Promise<object> {
       price:jp.query(responseData,"$..actualPrice")[0],
       description: removeHtmlTags(jp.value(responseData, "$..variant.description")),
       ingredients: removeHtmlTags(jp.value(responseData, "$..otherIngredients.text")),
-      // Nutritional: Nut.length?{
-      //         "PerServing": {
-      //           "Energy": Nut[0].sections[0]?.fact.keys[0].value,
-      //           "Fat": Nut[0].sections[0]?.fact.keys[1].value,
-      //           "ofWhichSaturates": Nut[0].sections[0]?.fact.keys[2].value,
-      //           "Carbohydrates": Nut[0].sections[0]?.fact.keys[3].value,
-      //           "ofWhichSugars": Nut[0].sections[0]?.fact.keys[4].value,
-      //           "Protein": Nut[0].sections[0]?.fact.keys[5].value,
-      //           "Salt": Nut[0].sections[0]?.fact.keys[6].value
-      //         },
-      //         "Per100g": {
-      //           "Energy": Nut[0].sections[1]?.fact.keys[0].value,
-      //           "Fat": Nut[0].sections[1]?.fact.keys[1].value,
-      //           "ofWhichSaturates": Nut[0].sections[1]?.fact.keys[2].value,
-      //           "Carbohydrates": Nut[0].sections[1]?.fact.keys[3].value,
-      //           "ofWhichSugars": Nut[0].sections[1]?.fact.keys[4].value,
-      //           "Protein": Nut[0].sections[1]?.fact.keys[5].value,
-      //           "Salt": Nut[0].sections[1]?.fact.keys[6].value
-      //         }
-      //     }:[]
+      Nutritional: niceJson(Nut)
     }
 }
