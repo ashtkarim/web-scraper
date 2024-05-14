@@ -23,6 +23,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "jsonpath": "^1.1.1",
+    "mongose": "^0.0.2-security",
     "random-useragent": "^0.5.0"
   }
 }

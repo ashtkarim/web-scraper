@@ -49,7 +49,7 @@ const Categories: React.FC = () => {
 
     return (
         <div style={{ margin: "20px" }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', margin: "20px" }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', margin: "20px 0" }}>
                 <h1>Category List</h1>
                 <button
                     className="btn btn-outline-secondary"
