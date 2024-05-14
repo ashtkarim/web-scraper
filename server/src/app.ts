@@ -25,7 +25,7 @@ app.get("/categories", async (req: Request, res: Response) => {
 app.get("/products", async (req: Request, res: Response) => {
   try {
     
-    const categoryUrl: any = req.query.url;
+    const categoryUrl: string =baseUrl + req.query.url;
     console.log(categoryUrl)
     const productLinks = await getProducts(categoryUrl);
     console.log(productLinks.length)
@@ -38,7 +38,7 @@ app.get("/products", async (req: Request, res: Response) => {
 
 app.get("/product",async (req: Request,res: Response)=>{
   try {
-    const categoryUrl: any = baseUrl + req.query.url;
+    const categoryUrl: string = baseUrl + req.query.url;
     const productLinks = await getProduct(categoryUrl);
     res.json(productLinks);
   } catch (err: any) {

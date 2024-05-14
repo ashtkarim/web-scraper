@@ -43,51 +43,53 @@ const ProductInfo: React.FC = () => {
     };
 
     return (
-        <div style={{margin:"20px"}}>
-
+        <div style={{ margin: "20px" }}>
+            <h1>Product Info</h1>
             <form onSubmit={handleSubmit}>
                 <div className="input-group mb-3">
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        placeholder="past Url here" 
-                        aria-label="Paste Url here" 
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" >https://www.hollandandbarrett.com</span>
+                    </div>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Paste Url here"
                         aria-describedby="basic-addon2"
-                        onChange={handleChange} 
+                        onChange={handleChange}
                         value={link}
                     />
                     <div className="input-group-append">
-                        <button 
-                        className="btn btn-outline-secondary" 
-                        type="submit"
-                        
-                    >Button</button>
+                        <button
+                            className="btn btn-outline-secondary"
+                            type="submit"
+                        >Button</button>
                     </div>
                 </div>
 
             </form>
-
-
-
-
-
-            
             {error && <p>{error}</p>}
             {response && (
                 <div>
                     <h2>Product Details:</h2>
-                    <p>Category: {response.category}</p>
-                    <p>Manufacturer: {response.Manufacturer}</p>
-                    <p>Name: {response.name}</p>
-                    <p>Images: {response.images}</p>
-                    <p>Price: {response.price}</p>
-                    <p>Description: {response.description}</p>
-                    <p>Ingredients: {response.ingredients}</p>
+                    <p><b>Category:</b> {response.category}</p>
+                    <p><b>Manufacturer: </b>{response.Manufacturer}</p>
+                    <p><b>Name: </b> {response.name}</p>
+                    <p><b>Images: </b>{response.images}</p>
+                    <p><b>Price:</b> {response.price}</p>
+                    <p><b>Description:</b> {response.description}</p>
+                    <p><b>Ingredients: </b>{response.ingredients}</p>
                     <h3>Nutritional Information:</h3>
                     <ul>
-                        {Object.entries(response.Nutritional['Per 2 Capsules %NRV*']).map(([key, value]) => (
-                            <li key={key}>
-                                {key}: {value}
+                        {Object.entries(response.Nutritional).map(([section, values]) => (
+                            <li key={section}>
+                                <h4>{section}</h4>
+                                <ul>
+                                    {Object.entries(values).map(([key, value]) => (
+                                        <li key={`${section}-${key}`}>
+                                            {`${key} : ${value}`}
+                                        </li>
+                                    ))}
+                                </ul>
                             </li>
                         ))}
                     </ul>
