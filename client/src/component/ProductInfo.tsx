@@ -62,7 +62,7 @@ const ProductInfo: React.FC = () => {
                         <button
                             className="btn btn-outline-secondary"
                             type="submit"
-                        >Button</button>
+                        >Get Info</button>
                     </div>
                 </div>
 
