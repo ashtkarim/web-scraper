@@ -1,10 +1,13 @@
 import express, { Request, Response } from "express";
+const cors = require('cors')
+
 import getCategories from "./get-categories";
 import getProducts from "./get-products";
 import getProduct from "./get-product";
 
 const app = express();
 
+app.use(cors())
 const baseUrl: string = "https://www.hollandandbarrett.com";
 
 app.get("/categories", async (req: Request, res: Response) => {
@@ -39,6 +42,6 @@ app.get("/product",async (req: Request,res: Response)=>{
   }
 })
 
-app.listen(4000, () => {
+app.listen(4000,'0.0.0.0', () => {
   console.log(`Server is running `);
 });
