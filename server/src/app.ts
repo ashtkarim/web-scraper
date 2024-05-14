@@ -8,6 +8,8 @@ import getProduct from "./get-product";
 const app = express();
 
 app.use(cors())
+app.options('*', cors());
+
 const baseUrl: string = "https://www.hollandandbarrett.com";
 
 app.get("/categories", async (req: Request, res: Response) => {
@@ -22,8 +24,11 @@ app.get("/categories", async (req: Request, res: Response) => {
 
 app.get("/products", async (req: Request, res: Response) => {
   try {
+    
     const categoryUrl: any = req.query.url;
+    console.log(categoryUrl)
     const productLinks = await getProducts(categoryUrl);
+    console.log(productLinks.length)
     res.json(productLinks);
   } catch (err: any) {
     console.error("err");

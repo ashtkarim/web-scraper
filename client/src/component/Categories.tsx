@@ -28,13 +28,15 @@ const Categories: React.FC = () => {
         fetchData();
     }, []); 
     return (
-        <div>
+        <div style={{margin:"20px"}}>
             <h1>Category List</h1>
-            <h4>
+            <ul className="list-group">
                 {categories.map((category, key) => (
-                    <a key={key} href={category.link}>{category.name}</a>
+                    <li className="list-group-item">
+                        <a key={key} href={category.link} target='_blank'>{category.name}</a>
+                    </li>
                 ))}
-            </h4>
+            </ul>
         </div>
     );
 };

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Categories from './component/Categories';
+import Products from './component/Products';
+import ProductInfo from './component/ProductInfo';
 
-const About = () => <h1>About</h1>;
-const Contact = () => <h1>Contact</h1>;
+
 
 const App: React.FC = () => {
   let [location, setLocation] = useState(String)
@@ -41,8 +42,8 @@ const App: React.FC = () => {
 
         <Routes>
           <Route path="/" element={<Categories />} />
-          <Route path="/products" element={<About />} />
-          <Route path="/productInfo" element={<Contact />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/productInfo" element={<ProductInfo />} />
         </Routes>
       </div>
     </Router >
