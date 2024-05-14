@@ -6,12 +6,16 @@ interface Category {
   name: string;
 }
 
-export default async function getCategories(
-  baseUrl: string
-): Promise<Category[]> {
-  let categories: Category[] = [];
-  const regex =
-    /\{(?:\s*"id"\s*:\s*"[^"]+",\s*"link"\s*:\s*"[^"]+",\s*"name"\s*:\s*"[^"]+"\s*)\}/g;
+let categories: Category[] = [];
+
+export default async function getCategories(baseUrl: string, useCache: boolean): Promise<Category[]> {
+  // if not refresh then returned the previously cached categories
+  if (useCache && categories.length) {
+    console.log("returning cached categories");
+    return categories;
+  }
+
+  const regex = /\{(?:\s*"id"\s*:\s*"[^"]+",\s*"link"\s*:\s*"[^"]+",\s*"name"\s*:\s*"[^"]+"\s*)\}/g;
   const response: AxiosResponse = await axios.get(baseUrl, {
     headers: {
       Accept: "application/json",
@@ -20,22 +24,20 @@ export default async function getCategories(
   });
 
   const catRes = await response.data;
-
+  let scrappedCategories: Category[] = [];
   if (catRes) {
     const elements: string = JSON.stringify(catRes);
     const matches = elements.match(regex);
     if (matches) {
-      categories = matches
+      scrappedCategories = matches
         .map((match) => JSON.parse(match))
-        .filter(
-          (obj) =>
-            typeof obj === "object" && obj.link && !obj.link.includes("offers")
-        )
+        .filter((obj) => typeof obj === "object" && obj.link && !obj.link.includes("offers"))
         .map((obj) => ({
           link: baseUrl + obj.link,
           name: obj.name,
         }));
     }
   }
+  categories = scrappedCategories;
   return categories;
 }

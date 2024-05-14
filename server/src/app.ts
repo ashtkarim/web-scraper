@@ -14,7 +14,8 @@ const baseUrl: string = "https://www.hollandandbarrett.com";
 
 app.get("/categories", async (req: Request, res: Response) => {
   try {
-    const categories = await getCategories(baseUrl);
+    const usecashe: any = req.query.usecache
+    const categories = await getCategories(baseUrl,usecashe);
     res.json(categories);
   } catch (err: any) {
     console.log("err");

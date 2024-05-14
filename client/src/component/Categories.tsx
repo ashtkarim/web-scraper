@@ -7,16 +7,15 @@ interface Category {
 
 const Categories: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
+    const [useCashe, setUseCashe] = useState<boolean>(true)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiUrl = 'http://4.233.16.88:4000/categories';
+                const apiUrl = `http://4.233.16.88:4000/categories?usecashe=${useCashe}`;
                 const response = await fetch(apiUrl);
 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data');
-                }
+                if (!response.ok) { throw new Error('Failed to fetch data') }
                 const data: Category[] = await response.json();
                 setCategories(data);
                 console.log(data)
@@ -51,11 +50,20 @@ const Categories: React.FC = () => {
         <div style={{ margin: "20px" }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', margin: "20px 0" }}>
                 <h1>Category List</h1>
-                <button
-                    className="btn btn-outline-secondary"
-                    type="submit"
-                    onClick={() => handleDownload()}
-                >Export as JSON</button>
+                <div style={{ margin: "10px" }}>
+                    <input
+                        type='checkbox'
+                        checked={useCashe}
+                        onChange={() => setUseCashe(!useCashe)}
+                    />Use cashe in Refresh
+                </div>
+                <div>
+                    <button
+                        className="btn btn-outline-secondary"
+                        type="submit"
+                        onClick={() => handleDownload()}
+                    >Export as JSON</button>
+                </div>
             </div>
             <ul className="list-group">
                 {categories.map((category, key) => (
