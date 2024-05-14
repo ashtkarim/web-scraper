@@ -21,7 +21,7 @@ const ProductInfo: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLink(e.target.value);
+        setLink(e.target.value.replace('https://www.hollandandbarrett.com', ""));
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

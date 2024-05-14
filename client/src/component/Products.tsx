@@ -58,7 +58,9 @@ const Products: React.FC = () => {
             placeholder="Category link "
             aria-label="Paste Url here"
             aria-describedby="basic-addon2"
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={(e) => {
+              setUrl(e.target.value.replace('https://www.hollandandbarrett.com', ""))
+            }}
             value={url}
           />
           <div className="input-group-append">
