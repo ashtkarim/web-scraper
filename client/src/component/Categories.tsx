@@ -27,9 +27,36 @@ const Categories: React.FC = () => {
 
         fetchData();
     }, []);
+
+    const handleDownload = () => {
+        const currentDate = new Date();
+        const timestamp = currentDate.toISOString().replace(/[:.]/g, '-');
+        const filename = `products_${timestamp}.json`;
+
+        const jsonBlob = new Blob([JSON.stringify(categories)], { type: 'application/json' });
+        const url = URL.createObjectURL(jsonBlob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
+
+
     return (
         <div style={{ margin: "20px" }}>
-            <h1>Category List</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between', margin: "20px" }}>
+                <h1>Category List</h1>
+                <button
+                    className="btn btn-outline-secondary"
+                    type="submit"
+                    onClick={() => handleDownload()}
+                >Export as JSON</button>
+            </div>
             <ul className="list-group">
                 {categories.map((category, key) => (
                     <li key={key} className="list-group-item">

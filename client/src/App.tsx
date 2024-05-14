@@ -27,7 +27,7 @@ const App: React.FC = () => {
               className={`nav-link ${location === '/products' ? 'active' : ''}`}
               onClick={() => setLocation('/products')}
             >
-              <Link to='/products'>Prducts</Link>
+              <Link to='/products'>Products</Link>
             </h2>
           </li>
           <li className="nav-item">

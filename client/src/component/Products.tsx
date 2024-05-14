@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface Product {
   link: string;
@@ -25,9 +25,28 @@ const Products: React.FC = () => {
     } finally { setIsLoading(false) }
   };
 
+  const handleDownload = () => {
+    const currentDate = new Date();
+    const timestamp = currentDate.toISOString().replace(/[:.]/g, '-');
+    const filename = `products_${timestamp}.json`;
+
+    const jsonBlob = new Blob([JSON.stringify(response)], { type: 'application/json' });
+    const url = URL.createObjectURL(jsonBlob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div style={{ margin: "20px" }}>
-      <h1>Products List</h1>
+      <h3>Category Url</h3>
+
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
@@ -36,7 +55,7 @@ const Products: React.FC = () => {
           <input
             type="text"
             className="form-control"
-            placeholder="past Url here"
+            placeholder="Category link "
             aria-label="Paste Url here"
             aria-describedby="basic-addon2"
             onChange={(e) => setUrl(e.target.value)}
@@ -53,11 +72,20 @@ const Products: React.FC = () => {
 
       </form>
 
+
       {isLoading ? (
         <p>Loading...</p>
       ) : response.length > 0 ? (
         <>
-          <h2>Scraped Products:</h2>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', margin: "20px" }}>
+            <h1>Products List</h1>
+            <button
+              className="btn btn-outline-secondary"
+              type="submit"
+              onClick={() => handleDownload()}
+            >Export as JSON</button>
+          </div>
           <ul className="list-group">
             {response.map((e: Product, index) => (
               <li key={index} className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}>
